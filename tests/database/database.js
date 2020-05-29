@@ -23,9 +23,7 @@ QUnit.test("dexie database store", function (assert) {
                 });
             });
         });
-    }).error(function (e) {
-        alert(e);
-    })
+    });
 });
 
 

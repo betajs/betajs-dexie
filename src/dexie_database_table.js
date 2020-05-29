@@ -34,7 +34,7 @@ Scoped.define("module:DexieDatabaseTable", [
             },
 
             _removeRow: function(query) {
-                return Promise.fromNativePromise(this.table().delete(query[this.primary_key()]));
+                return Promise.fromNativePromise(this.table()['delete'](query[this.primary_key()]));
             },
 
             _findOne: function(query) {
@@ -87,7 +87,7 @@ Scoped.define("module:DexieDatabaseTable", [
                     }, this);
                 }
                 var splt = Objs.splitObject(query, function(value) {
-                    return Queries.isEqualValueKey(value)
+                    return Queries.isEqualValueKey(value);
                 });
                 var result = this.table();
                 var canAnd = false;

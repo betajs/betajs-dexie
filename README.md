@@ -1,4 +1,4 @@
-# betajs-dexie 0.0.1
+# betajs-dexie 0.0.2
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-dexie/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-dexie)
 [![NPM](https://img.shields.io/npm/v/betajs-dexie.svg?style=flat)](https://www.npmjs.com/package/betajs-dexie)
 
@@ -39,7 +39,10 @@ We provide a simple abstraction for databases and tables, with a concrete implem
 First, you instantiate a database, e.g. a Dexie:
 
 ```javascript
-	var database = new BetaJS.Data.Databases.Dexie.DexieDatabase("database");
+	var database = new BetaJS.Data.Databases.Dexie.DexieDatabase("database", {
+	     'table1': "indexkey1,indexkey2",
+         ...
+    });
 ```
  
 The `DexieDatabase` class inherits from the abstract `Database` class.

@@ -46,7 +46,7 @@ Scoped.define("module:DexieDatabase", [
 
             deleteDatabase: function() {
                 this._unbind();
-                return Dexie.delete(this._db);
+                return Dexie['delete'](this._db);
             }
 
         };
