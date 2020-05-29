@@ -1,0 +1,86 @@
+{
+    "homepage": "https://betajs.com",
+    "license": "Apache-2.0",
+    "licenses": [
+        {
+            "type": "Apache-2.0",
+            "url": "https://github.com/betajs/betajs-dexie/blob/master/LICENSE"
+        }
+    ],
+    "author": {
+        "name": "BetaJS",
+        "email": "info@betajs.com"
+    },
+    "bugs": {
+        "url": "https://github.com/betajs/betajs-dexie/issues"
+    },
+    "name": "betajs-dexie",
+    "version": "0.0.1",
+    "description": "BetaJS-Dexie is a Dexie / IndexedDB wrapper for BetaJS.",
+    "contributors": [
+        "Oliver Friedmann"
+    ],
+    "devDependencies": {
+        "lodash": "",
+        "qunitjs": "^2.4.1",
+        "grunt": "",
+        "grunt-contrib-jshint": "",
+        "grunt-contrib-concat": "",
+        "grunt-contrib-uglify": "^4.0.0",
+        "grunt-contrib-clean": "",
+        "grunt-preprocess": "",
+        "grunt-git-revision-count": "",
+        "grunt-closure-tools": "",
+        "grunt-wget": "",
+        "grunt-jsdoc": "",
+        "grunt-shell": "",
+        "grunt-template": "",
+        "grunt-githooks": "",
+        "grunt-contrib-connect": "",
+        "grunt-betajs-docs-compile": "",
+        "betajs-scoped": "~0.0.13",
+        "betajs-compile": "~0.0.28",
+        "js-beautify": ""
+    },
+    "scripts": {
+        "test": "grunt check-node",
+        "relink": "npm link betajs && npm link betajs-compile && npm link betajs-scoped && npm link betajs-data",
+        "reinstall": "rm -f package-lock.json && rm -rf node_modules && npm i && npm run relink"
+    },
+    "dependencies": {
+        "betajs": "~1.0.96",
+        "betajs-data": "~1.0.41",
+        "dexie": "^3.0.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/betajs/betajs-dexie.git"
+    },
+    "main": "dist/betajs-dexie.js",
+    "meta": {
+        "blog": "https://blog.betajs.com",
+        "twitter": "https://twitter.com/thebetajs",
+        "guid": "5bd48095-7aea-4962-b1d3-75a575bce453",
+        "installdoc": "docsrc/common/install.md",
+        "summarydoc": "docsrc/common/summary.md",
+        "badges": {
+            "codeclimate": true,
+            "travis": false,
+            "npm": true
+        },
+        "compatability": {},
+        "weakDependencies": {
+            "betajs-scoped": "https://github.com/betajs/betajs-scoped"
+        },
+        "dependencies": {
+            "betajs": "https://github.com/betajs/betajs",
+            "betajs-data": "https://github.com/betajs/betajs-data"
+        },
+        "cdn": {
+            "betajs-dexie.js": "http://cdn.rawgit.com/betajs/betajs-dexie/master/dist/betajs-dexie.js",
+            "betajs-dexie.min.js": "http://cdn.rawgit.com/betajs/betajs-dexie/master/dist/betajs-dexie.min.js",
+            "betajs-dexie-noscoped.js": "http://cdn.rawgit.com/betajs/betajs-dexie/master/dist/betajs-dexie-noscoped.js",
+            "betajs-dexie-noscoped.min.js": "http://cdn.rawgit.com/betajs/betajs-dexie/master/dist/betajs-dexie-noscoped.min.js"
+        }
+    }
+}
