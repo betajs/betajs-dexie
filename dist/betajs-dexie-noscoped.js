@@ -1,5 +1,5 @@
 /*!
-betajs-dexie - v0.0.2 - 2020-05-29
+betajs-dexie - v0.0.3 - 2020-05-30
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -12,8 +12,8 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "5bd48095-7aea-4962-b1d3-75a575bce453",
-    "version": "0.0.2",
-    "datetime": 1590791570509
+    "version": "0.0.3",
+    "datetime": 1590864002595
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -146,8 +146,10 @@ Scoped.define("module:DexieDatabaseTable", [
 Scoped.define("module:DexieDatabase", [
     "data:Databases.Database",
     "base:Promise",
-    "module:DexieDatabaseTable"
-], function(Database, Promise, DexieDatabaseTable, scoped) {
+    "module:DexieDatabaseTable",
+    "base:Objs",
+    "base:Types"
+], function(Database, Promise, DexieDatabaseTable, Objs, Types, scoped) {
     return Database.extend({
         scoped: scoped
     }, function(inherited) {
@@ -175,7 +177,9 @@ Scoped.define("module:DexieDatabase", [
             _bind: function() {
                 if (!this._dexie) {
                     this._dexie = new Dexie(this._db);
-                    this._dexie.version(1).stores(this._config);
+                    this._dexie.version(1).stores(Objs.map(this._config, function(value) {
+                        return Types.is_array(value) ? value.join(",") : value;
+                    }));
                     this._dexie.open();
                 }
             },

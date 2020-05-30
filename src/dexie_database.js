@@ -1,8 +1,10 @@
 Scoped.define("module:DexieDatabase", [
     "data:Databases.Database",
     "base:Promise",
-    "module:DexieDatabaseTable"
-], function(Database, Promise, DexieDatabaseTable, scoped) {
+    "module:DexieDatabaseTable",
+    "base:Objs",
+    "base:Types"
+], function(Database, Promise, DexieDatabaseTable, Objs, Types, scoped) {
     return Database.extend({
         scoped: scoped
     }, function(inherited) {
@@ -30,7 +32,9 @@ Scoped.define("module:DexieDatabase", [
             _bind: function() {
                 if (!this._dexie) {
                     this._dexie = new Dexie(this._db);
-                    this._dexie.version(1).stores(this._config);
+                    this._dexie.version(1).stores(Objs.map(this._config, function(value) {
+                        return Types.is_array(value) ? value.join(",") : value;
+                    }));
                     this._dexie.open();
                 }
             },
