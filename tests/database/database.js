@@ -1,7 +1,7 @@
 QUnit.test("dexie database store", function (assert) {
     var done = assert.async();
 	var db = new BetaJS.Data.Databases.Dexie.DexieDatabase("betajs-dexie", {
-	    "tests": "_id"
+	    "tests": ["_id"]
     });
     db.getTable("tests").clear().success(function () {
         db.getTable("tests").insertRow({x: 5}).success(function (object) {
@@ -31,7 +31,7 @@ QUnit.test("dexie database store", function (assert) {
 QUnit.test("dexie database $elemMatch test", function (assert) {
     var done = assert.async();
     var db = new BetaJS.Data.Databases.Dexie.DexieDatabase("betajs-dexie", {
-        "tests": "_id"
+        "tests": ["_id"]
     });
     db.getTable("tests").clear().success(function () {
         db.getTable("tests").insertRow({foo: ["bar", "baz"]}).success(function (object) {
@@ -52,7 +52,7 @@ QUnit.test("dexie database $elemMatch test", function (assert) {
 QUnit.test("dexie database $and test", function (assert) {
     var done = assert.async();
     var db = new BetaJS.Data.Databases.Dexie.DexieDatabase("betajs-dexie", {
-        "tests": "_id"
+        "tests": ["_id"]
     });
     db.getTable("tests").clear().success(function () {
         db.getTable("tests").insertRow({foo: "barbaz"}).success(function (object) {
