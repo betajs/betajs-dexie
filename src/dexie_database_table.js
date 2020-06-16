@@ -87,7 +87,7 @@ Scoped.define("module:DexieDatabaseTable", [
                     }, this);
                 }
                 var splt = Objs.splitObject(query, function(value) {
-                    return Queries.isEqualValueKey(value);
+                    return Queries.is_simple_atom(value);
                 });
                 var result = this.table();
                 var canAnd = false;
