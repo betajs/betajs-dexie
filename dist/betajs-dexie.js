@@ -1,5 +1,5 @@
 /*!
-betajs-dexie - v0.0.4 - 2020-06-15
+betajs-dexie - v0.0.4 - 2020-06-17
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-dexie - v0.0.4 - 2020-06-15
+betajs-dexie - v0.0.4 - 2020-06-17
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1024,7 +1024,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "5bd48095-7aea-4962-b1d3-75a575bce453",
     "version": "0.0.4",
-    "datetime": 1592278832250
+    "datetime": 1592430109895
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1134,7 +1134,7 @@ Scoped.define("module:DexieDatabaseTable", [
                 }
                 options = options || {};
                 if (options.sort)
-                    result = result.orderBy(Objs.ithKey(options.sort));
+                    result = result.sortBy(Objs.ithKey(options.sort));
                 if (options.skip)
                     result = result.offset(options.skip);
                 if (options.limit)

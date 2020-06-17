@@ -103,7 +103,7 @@ Scoped.define("module:DexieDatabaseTable", [
                 }
                 options = options || {};
                 if (options.sort)
-                    result = result.orderBy(Objs.ithKey(options.sort));
+                    result = result.sortBy(Objs.ithKey(options.sort));
                 if (options.skip)
                     result = result.offset(options.skip);
                 if (options.limit)
