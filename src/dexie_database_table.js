@@ -92,7 +92,12 @@ Scoped.define("module:DexieDatabaseTable", [
                 var result = this.table();
                 var canAnd = false;
                 if (!Types.is_empty(splt[0])) {
-                    result = result.where(Objs.keys(splt[0])).equals(Objs.values(splt[0]));
+                    var keys = Objs.keys(splt[0]);
+                    var values = Objs.values(splt[0]);
+                    if (keys.length > 1)
+                        result = result.where("[" + keys.join("+") + "]").equals(values);
+                    else
+                        result = result.where(keys[0]).equals(values[0]);
                     canAnd = true;
                 }
                 query = splt[1];
