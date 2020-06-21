@@ -80,6 +80,7 @@ Scoped.define("module:DexieDatabaseTable", [
             },
 
             _find: function(query, options) {
+                var originalQuery = query;
                 query = query || {};
                 if (!query || Types.is_empty(query)) {
                     return Promise.fromNativePromise(this.table().toArray()).mapSuccess(function(cols) {
@@ -89,15 +90,11 @@ Scoped.define("module:DexieDatabaseTable", [
                 var splt = Objs.splitObject(query, function(value) {
                     return Queries.is_simple_atom(value);
                 });
+                console.log(splt);
                 var result = this.table();
                 var canAnd = false;
                 if (!Types.is_empty(splt[0])) {
-                    var keys = Objs.keys(splt[0]);
-                    var values = Objs.values(splt[0]);
-                    if (keys.length > 1)
-                        result = result.where("[" + keys.join("+") + "]").equals(values);
-                    else
-                        result = result.where(keys[0]).equals(values[0]);
+                    result = result.where(splt[0]);
                     canAnd = true;
                 }
                 query = splt[1];
@@ -107,13 +104,12 @@ Scoped.define("module:DexieDatabaseTable", [
                     });
                 }
                 options = options || {};
-                if (options.sort)
-                    result = result.sortBy(Objs.ithKey(options.sort));
                 if (options.skip)
                     result = result.offset(options.skip);
                 if (options.limit)
                     result = result.limit(options.limit);
-                return Promise.fromNativePromise(result.toArray()).mapSuccess(function(cols) {
+                var promise = options.sort ? result.sortBy(Objs.ithKey(options.sort)) : result.toArray();
+                return Promise.fromNativePromise(promise).mapSuccess(function(cols) {
                     if (!Types.is_empty(query) && !canAnd) {
                         cols = cols.filter(function(row) {
                             return Queries.evaluate(query, row);
@@ -121,7 +117,7 @@ Scoped.define("module:DexieDatabaseTable", [
                     }
                     return new ArrayIterator(cols);
                 }, this).error(function(e) {
-                    console.warn(e);
+                    console.warn(e, originalQuery, options);
                 });
             }
 
