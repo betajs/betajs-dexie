@@ -15,7 +15,7 @@
         "url": "https://github.com/betajs/betajs-dexie/issues"
     },
     "name": "betajs-dexie",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "BetaJS-Dexie is a Dexie / IndexedDB wrapper for BetaJS.",
     "contributors": [
         "Oliver Friedmann"

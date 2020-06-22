@@ -1,5 +1,5 @@
 /*!
-betajs-dexie - v0.0.7 - 2020-06-21
+betajs-dexie - v0.0.7 - 2020-06-22
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-dexie - v0.0.7 - 2020-06-21
+betajs-dexie - v0.0.7 - 2020-06-22
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1024,7 +1024,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "5bd48095-7aea-4962-b1d3-75a575bce453",
     "version": "0.0.7",
-    "datetime": 1592783126222
+    "datetime": 1592861064894
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1121,7 +1121,6 @@ Scoped.define("module:DexieDatabaseTable", [
                 var splt = Objs.splitObject(query, function(value) {
                     return Queries.is_simple_atom(value);
                 });
-                console.log(splt);
                 var result = this.table();
                 var canAnd = false;
                 if (!Types.is_empty(splt[0])) {
@@ -1139,7 +1138,7 @@ Scoped.define("module:DexieDatabaseTable", [
                     result = result.offset(options.skip);
                 if (options.limit)
                     result = result.limit(options.limit);
-                var promise = options.sort ? result.sortBy(Objs.ithKey(options.sort)) : result.toArray();
+                var promise = options.sort && result.sortBy ? result.sortBy(Objs.ithKey(options.sort)) : result.toArray();
                 return Promise.fromNativePromise(promise).mapSuccess(function(cols) {
                     if (!Types.is_empty(query) && !canAnd) {
                         cols = cols.filter(function(row) {

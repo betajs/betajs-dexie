@@ -90,7 +90,6 @@ Scoped.define("module:DexieDatabaseTable", [
                 var splt = Objs.splitObject(query, function(value) {
                     return Queries.is_simple_atom(value);
                 });
-                console.log(splt);
                 var result = this.table();
                 var canAnd = false;
                 if (!Types.is_empty(splt[0])) {
@@ -108,7 +107,7 @@ Scoped.define("module:DexieDatabaseTable", [
                     result = result.offset(options.skip);
                 if (options.limit)
                     result = result.limit(options.limit);
-                var promise = options.sort ? result.sortBy(Objs.ithKey(options.sort)) : result.toArray();
+                var promise = options.sort && result.sortBy ? result.sortBy(Objs.ithKey(options.sort)) : result.toArray();
                 return Promise.fromNativePromise(promise).mapSuccess(function(cols) {
                     if (!Types.is_empty(query) && !canAnd) {
                         cols = cols.filter(function(row) {
