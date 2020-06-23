@@ -1,6 +1,6 @@
 {
     "name": "betajs-dexie",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "BetaJS-Dexie is a Dexie / IndexedDB wrapper for BetaJS.",
     "contributors": [
         "Oliver Friedmann"

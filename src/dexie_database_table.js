@@ -22,7 +22,7 @@ Scoped.define("module:DexieDatabaseTable", [
             },
 
             primary_key: function() {
-                return "_id";
+                return "id";
             },
 
             _insertRow: function(row) {
@@ -88,7 +88,7 @@ Scoped.define("module:DexieDatabaseTable", [
                     }, this);
                 }
                 var splt = Objs.splitObject(query, function(value) {
-                    return Queries.is_simple_atom(value);
+                    return Queries.is_simple_atom(value) && !Types.is_boolean(value);
                 });
                 var result = this.table();
                 var canAnd = false;
@@ -97,10 +97,16 @@ Scoped.define("module:DexieDatabaseTable", [
                     canAnd = true;
                 }
                 query = splt[1];
-                if (!Types.is_empty(query) && canAnd) {
-                    result = result.and(function(row) {
-                        return Queries.evaluate(query, row);
-                    });
+                if (!Types.is_empty(query)) {
+                    if (canAnd) {
+                        result = result.and(function(row) {
+                            return Queries.evaluate(query, row);
+                        });
+                    } else {
+                        result = result.filter(function(row) {
+                            return Queries.evaluate(query, row);
+                        });
+                    }
                 }
                 options = options || {};
                 if (options.skip)

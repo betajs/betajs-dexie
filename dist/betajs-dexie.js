@@ -1,5 +1,5 @@
 /*!
-betajs-dexie - v0.0.7 - 2020-06-22
+betajs-dexie - v0.0.9 - 2020-06-23
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-dexie - v0.0.7 - 2020-06-22
+betajs-dexie - v0.0.9 - 2020-06-23
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1023,8 +1023,8 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "5bd48095-7aea-4962-b1d3-75a575bce453",
-    "version": "0.0.7",
-    "datetime": 1592861064894
+    "version": "0.0.9",
+    "datetime": 1592939386523
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1053,7 +1053,7 @@ Scoped.define("module:DexieDatabaseTable", [
             },
 
             primary_key: function() {
-                return "_id";
+                return "id";
             },
 
             _insertRow: function(row) {
@@ -1119,7 +1119,7 @@ Scoped.define("module:DexieDatabaseTable", [
                     }, this);
                 }
                 var splt = Objs.splitObject(query, function(value) {
-                    return Queries.is_simple_atom(value);
+                    return Queries.is_simple_atom(value) && !Types.is_boolean(value);
                 });
                 var result = this.table();
                 var canAnd = false;
@@ -1128,10 +1128,16 @@ Scoped.define("module:DexieDatabaseTable", [
                     canAnd = true;
                 }
                 query = splt[1];
-                if (!Types.is_empty(query) && canAnd) {
-                    result = result.and(function(row) {
-                        return Queries.evaluate(query, row);
-                    });
+                if (!Types.is_empty(query)) {
+                    if (canAnd) {
+                        result = result.and(function(row) {
+                            return Queries.evaluate(query, row);
+                        });
+                    } else {
+                        result = result.filter(function(row) {
+                            return Queries.evaluate(query, row);
+                        });
+                    }
                 }
                 options = options || {};
                 if (options.skip)
