@@ -33,7 +33,15 @@ Scoped.define("module:DexieDatabase", [
                 if (!this._dexie) {
                     this._dexie = new Dexie(this._db);
                     this._dexie.version(1).stores(Objs.map(this._config, function(value) {
-                        return Types.is_array(value) ? value.join(",") : value;
+                        if (Types.is_array(value)) {
+                            value = value.map(function(idx) {
+                                if (Types.is_array(idx))
+                                    return "[" + idx.join("+") + "]";
+                                return idx;
+                            });
+                            value = value.join(",");
+                        }
+                        return value;
                     }));
                     this._dexie.open();
                 }
